@@ -26,3 +26,4 @@ nbdist/
 .nb-gradle/
 .idea/
 .mvn/
+.DS_Store
