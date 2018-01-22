@@ -1,6 +1,7 @@
 package com.wing.apirecord;
 
 import com.wing.apirecord.core.NettyHttpProxyServer;
+import com.wing.apirecord.core.filter.UrlFilter;
 import com.wing.apirecord.core.intercept.HttpProxyIntercept;
 import com.wing.apirecord.core.model.Request;
 import com.wing.apirecord.core.model.Response;
@@ -38,7 +39,7 @@ public class ApirecordApplication {
 		RecordQueue.getInstance().start();
 		FilterChain.addFilter(new ContentTypeFilter("application/json,text/plain,text/html,application/xhtml+xml,application/xml"));
 
-//		FilterChain.addFilter(new UrlFilter("3027-mgtoo-sl-mta"));
+		FilterChain.addFilter(new UrlFilter("3027-mgtoo-sl-mta"));
 
 		FilterChain.addFilter(new MethodFilter("get,post"));
 

@@ -23,7 +23,7 @@ public class UrlFilter implements Filter {
 
             boolean ok = true;
             for (String url : urls) {
-                if (request.getHost().contains(url)) {
+                if (request.getUrl().contains(url)) {
                     ok = false;
                     break;
                 }
