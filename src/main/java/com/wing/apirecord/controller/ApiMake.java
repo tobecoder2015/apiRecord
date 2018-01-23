@@ -2,10 +2,7 @@ package com.wing.apirecord.controller;
 
 import com.wing.apirecord.core.record.Record;
 import com.wing.apirecord.core.record.RecordMap;
-import com.wing.apirecord.service.ApiGen;
-import com.wing.apirecord.service.MethodGen;
-import com.wing.apirecord.service.QueryGen;
-import com.wing.apirecord.service.SchemaGen;
+import com.wing.apirecord.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,12 +16,16 @@ import java.util.Map;
 public class ApiMake {
     @Resource
     SchemaGen schemaGen;
+
     @Resource
     QueryGen queryGen;
     @Resource
     ApiGen apiGen;
     @Resource
     MethodGen methodGen;
+
+    @Resource
+    FileService fileService;
 
     @GetMapping(path = "dump")
     public String dumpReord(){
@@ -42,7 +43,6 @@ public class ApiMake {
     @GetMapping(path = "api/{id}")
     public ModelAndView api(@PathVariable int id ){
         Record record=RecordMap.getRecord().get(id-1);
-        log.info("请求参数为："+id);
         Map api=new HashMap();
         api.put("apiDef",apiGen.apiDef(record));
         api.put("apiMethod",apiGen.apiMethod(record));
@@ -50,10 +50,21 @@ public class ApiMake {
         api.put("query",queryGen.getQuery(record));
         api.put("schema",schemaGen.getSchema(record));
         api.put("method",methodGen.method(record));
-
-//        api.put("schema", JsonFormat.format((String)api.get("schema")));
-//        api.put("query", JsonFormat.format((String)api.get("query")));
         return new ModelAndView("api", "api", api);
+    }
 
+    @GetMapping(path = "api/{id}/write")
+    public String apiWrite(@PathVariable int id ){
+        Record record=RecordMap.getRecord().get(id-1);
+        try {
+            String fileName=NameGen.getClassName(record);
+            fileService.saveSchema(fileName,schemaGen.getSchema(record));
+            fileService.saveCodeModuleTestsuites(fileName,methodGen.method(record));
+            fileService.saveData(fileName,queryGen.getQuery(record));
+            return "写入文件成功："+FileService.saveCodeBase;
+
+        }catch (Exception e){
+            return e.getMessage();
+        }
     }
 }

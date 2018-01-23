@@ -12,6 +12,7 @@ import com.wing.apirecord.core.tools.TransferUtil;
 import com.wing.apirecord.core.filter.ContentTypeFilter;
 import com.wing.apirecord.core.filter.FilterChain;
 import com.wing.apirecord.core.filter.MethodFilter;
+import com.wing.apirecord.service.FilterService;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -37,11 +38,10 @@ public class ApirecordApplication {
 
 		//配置文件
 		RecordQueue.getInstance().start();
-		FilterChain.addFilter(new ContentTypeFilter("application/json,text/plain,text/html,application/xhtml+xml,application/xml"));
+		FilterChain.addFilter(new ContentTypeFilter(FilterService.contentType));
+		FilterChain.addFilter(new UrlFilter(FilterService.urls));
+		FilterChain.addFilter(new MethodFilter(FilterService.methods));
 
-		FilterChain.addFilter(new UrlFilter("3027-mgtoo-sl-mta"));
-
-		FilterChain.addFilter(new MethodFilter("get,post"));
 
 
 		new NettyHttpProxyServer().initProxyInterceptFactory(() -> new HttpProxyIntercept() {

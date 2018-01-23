@@ -9,19 +9,13 @@
 
 </head>
 <body>
-
-<nav class="navbar navbar-default navbar-fixed-top" style="background: #96b97d;">
-    <div class="container">
-        <#--<div class="navbar-header logo"><h1>-->
-            <#--<a target="_blank" href="/" style="display: block;">API录制</a></h1>-->
-        <#--</div>-->
-        <#--<div class="navbar-header logo"><h1>-->
-            <#--<a target="_blank" href="/" style="display: block;">API录制2</a></h1>-->
-        <#--</div>-->
-        <h3>API录制</h3>
-    </div>
-</nav>
-<div class="container" >
+<style>
+    body{min-height:20px;padding-top:20px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:auto;margin-left:auto}
+</style>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="/index">API录制</a></li>
+    <li><a href="/config">配置管理</a></li>
+</ul>
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-default">
@@ -54,7 +48,10 @@
                         <td>${record.request.method}</td>
                         <td>${record.request.path}</td>
                         <td>${record.response.body}</td>
-                        <td><button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">处理</button></td>
+                        <td>
+                            <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
+                            <button type="button" class="btn btn-success" onclick="write(${record.id});">保存</button>
+                        </td>
                         <tr>
                         </#list>
                         </tbody>
@@ -72,11 +69,26 @@
 
                     <hr>
 
-                    <p><a target="_blank" href="https://wiki.sankuai.com/pages/viewpage.action?pageId=1172686686">测试流程wiki</a>,有问题大象联系王庆山</p>
+                    <p>有问题大象联系王庆山</p>
                 </div>
             </div>
         </div>
     </footer>
-</div>
+
+<script>
+    function write(id) {
+        $.ajax({
+            url:"api/"+id+"/write",
+            type:"get",
+            processData:false,
+            success:function(data){
+                alert(data);
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });
+    }
+</script>
 </body>
 </html>

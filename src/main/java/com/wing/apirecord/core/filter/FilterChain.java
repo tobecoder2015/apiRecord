@@ -13,6 +13,10 @@ public class FilterChain implements Filter{
         return filters;
     }
 
+    public static void clear() {
+        filters.clear();
+    }
+
     private FilterChain(){}
 
     public static FilterChain getFilterChain() {
