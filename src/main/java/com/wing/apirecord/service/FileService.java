@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Component
 @Slf4j
@@ -38,9 +40,10 @@ public class FileService {
             FileUtils.forceMkdir(new File(saveCodeModuleSchema));
             FileUtils.forceMkdir(new File(saveCodeModuleTestsuites));
         }catch (Exception e){
-            log.error(e.getMessage());
+            log.error("创建路径失败",e);
         }
     }
+
     public void saveData(String fileName,String data) throws Exception {
         saveFile(saveCodeModuleData+"/"+fileName+".json",data);
     }
@@ -56,6 +59,25 @@ public class FileService {
 
     public void saveFile(String savePath,String text) throws Exception{
         FileUtils.write(new File(savePath),text, Charset.forName("utf-8"));
+    }
+
+
+    public String readFile(String readPath) throws Exception{
+        return FileUtils.readFileToString(new File(readPath), Charset.forName("utf-8"));
+    }
+
+
+    public String getApiDef() throws Exception{
+        File file=new File(saveCodeBase + "/Api.java");
+        if(file.exists()) {
+            return  FileUtils.readFileToString(new File(saveCodeBase + "/Api.java"), Charset.forName("utf-8"));
+        }else {
+            return null;
+        }
+    }
+
+    public void writeApiDef(String data) throws Exception{
+        FileUtils.write(new File(saveCodeBase + "/Api.java"),data, Charset.forName("utf-8"));
     }
 
 

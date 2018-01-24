@@ -40,14 +40,25 @@ public class ApiMake {
     }
 
     @GetMapping(path = "api/{id}/del")
-    public ModelAndView del(@PathVariable int id ){
-        RecordMap.getRecord().remove(id-1);
-        return new ModelAndView("index", "records", RecordMap.getRecord());
+    public String del(@PathVariable int id ){
+        for(int i=0;i<RecordMap.getRecord().size();i++){
+            if(RecordMap.getRecord().get(i).getId()==id) {
+                RecordMap.getRecord().remove(i);
+                break;
+            }
+        }
+        return "删除成功";
     }
 
     @GetMapping(path = "api/{id}")
     public ModelAndView api(@PathVariable int id ){
-        Record record=RecordMap.getRecord().get(id-1);
+        Record record=null;
+        for(int i=0;i<RecordMap.getRecord().size();i++){
+            if(RecordMap.getRecord().get(i).getId()==id) {
+                record=RecordMap.getRecord().get(i);
+                break;
+            }
+        }
         Map api=new HashMap();
         api.put("apiDef",apiGen.apiDef(record));
         api.put("apiMethod",apiGen.apiMethod(record));
@@ -66,9 +77,11 @@ public class ApiMake {
             fileService.saveSchema(fileName,schemaGen.getSchema(record));
             fileService.saveCodeModuleTestsuites(fileName,methodGen.method(record));
             fileService.saveData(fileName,queryGen.getQuery(record));
+            fileService.writeApiDef(apiGen.apiClass(record));
             return "写入文件成功："+FileService.saveCodeBase;
 
         }catch (Exception e){
+            log.error("写入文件失败",e);
             return e.getMessage();
         }
     }

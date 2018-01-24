@@ -51,7 +51,7 @@
                         <td>
                             <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
                             <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
-                            <button type="button" class="btn btn-success" onclick="del(${record.id});">删除</button>
+                            <button type="button" class="btn btn-success" onclick="del(${record.id});javascript:window.location.href='index'">删除</button>
 
                         </td>
                         <tr>
@@ -68,9 +68,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div style="text-align: center;">
-
                     <hr>
-
                     <p>有问题大象联系王庆山</p>
                 </div>
             </div>
