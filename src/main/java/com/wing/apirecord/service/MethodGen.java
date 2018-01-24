@@ -14,7 +14,7 @@ public class MethodGen {
     public String method(Record record) {
         String className = NameGen.getClassName(record);
         String methodName = NameGen.getMethodName(record);
-        String packageName = NameGen.getMethodName(record);
+        String packageName = NameGen.getPackageName(record);
 
         String method="package "+packageName+".testsuites;\n" +
                 "\n" +

@@ -20,7 +20,7 @@ public class NameGen {
 
 
     public static String getPackageName(Record record){
-        return "api";
+        return FileService.saveCodeModule;
     }
 
     public static  String getMethodName(Record record){
