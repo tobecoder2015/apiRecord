@@ -103,7 +103,7 @@ public class ApiGen {
         method=" public ResponseMap "+methodName+"(JSONObject request) throws IOException {\n" +
                 "                Map<String, Object> queryMaps = (Map) JSON.parse(request.get(\"query\").toString());\n" +
                 "\n" +
-                "                autoAPIServices service = retrofit().create(autoAPIServices.class);\n" +
+                "                apiServices service = retrofit().create(apiServices.class);\n" +
                 "                Call<ResponseBody> call = service."+methodName+"(queryMaps,headerMap);\n" +
                 "                return sendRequest(call);\n"+
                 "}";
