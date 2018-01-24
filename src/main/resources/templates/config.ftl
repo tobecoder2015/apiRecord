@@ -11,7 +11,7 @@
 </head>
 <body>
 <style>
-    body{min-height:20px;padding-top:20px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:auto;margin-left:auto}
+    body{min-height:20px;padding-top:20px;padding-right:10px;padding-left:10px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:10px;margin-left:10px}
 </style>
 
 <ul class="nav nav-tabs">

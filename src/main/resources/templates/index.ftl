@@ -10,7 +10,7 @@
 </head>
 <body>
 <style>
-    body{min-height:20px;padding-top:20px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:auto;margin-left:auto}
+    body{min-height:20px;padding-top:20px;padding-right:10px;padding-left:10px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:10px;margin-left:10px}
 </style>
 <ul class="nav nav-tabs">
     <li class="active"><a href="/index">API录制</a></li>
@@ -50,7 +50,9 @@
                         <td>${record.response.body}</td>
                         <td>
                             <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
-                            <button type="button" class="btn btn-success" onclick="write(${record.id});">保存</button>
+                            <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
+                            <button type="button" class="btn btn-success" onclick="del(${record.id});">删除</button>
+
                         </td>
                         <tr>
                         </#list>
@@ -74,13 +76,24 @@
             </div>
         </div>
     </footer>
-
+</body>
 <script>
-    function write(id) {
+    function writeFile(id) {
         $.ajax({
             url:"api/"+id+"/write",
             type:"get",
-            processData:false,
+            success:function(data){
+                alert(data);
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });
+    }
+    function del(id) {
+        $.ajax({
+            url:"api/"+id+"/del",
+            type:"get",
             success:function(data){
                 alert(data);
             },
@@ -90,5 +103,4 @@
         });
     }
 </script>
-</body>
 </html>

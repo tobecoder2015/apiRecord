@@ -4,6 +4,7 @@ import com.wing.apirecord.core.filter.ContentTypeFilter;
 import com.wing.apirecord.core.filter.FilterChain;
 import com.wing.apirecord.core.filter.MethodFilter;
 import com.wing.apirecord.core.filter.UrlFilter;
+import com.wing.apirecord.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
@@ -16,25 +17,29 @@ import java.nio.charset.Charset;
 @Slf4j
 public class FileService {
 
-    public static String saveCodeRoot = "/Users/wangqingshan/app/hotel-bos-test";
+    public static String saveCodeRoot = ConfigUtil.getConfig("saveCodeRoot");
     public static String saveCodeBase = null;
-    public static String saveCodeModule = "priceTrace";
+    public static String saveCodeModule = ConfigUtil.getConfig("saveCodeModule");
     public static String saveCodeModuleData = null;
     public static String saveCodeModuleSchema = null;
     public static String saveCodeModuleTestsuites = null;
 
 
-    public void setSavePath(String savePath) throws Exception{
+    public static void setSavePath(String savePath){
+        if(savePath!=null)
         saveCodeRoot = savePath;
         saveCodeBase=saveCodeRoot+"/src/test/java/"+saveCodeModule;
         saveCodeModuleData=saveCodeBase+"/data";
         saveCodeModuleSchema=saveCodeBase+"/schema";
         saveCodeModuleTestsuites=saveCodeBase+"/testsuites";
 
-        FileUtils.forceMkdir(new File(saveCodeModuleData));
-        FileUtils.forceMkdir(new File(saveCodeModuleSchema));
-        FileUtils.forceMkdir(new File(saveCodeModuleTestsuites));
-
+        try {
+            FileUtils.forceMkdir(new File(saveCodeModuleData));
+            FileUtils.forceMkdir(new File(saveCodeModuleSchema));
+            FileUtils.forceMkdir(new File(saveCodeModuleTestsuites));
+        }catch (Exception e){
+            log.error(e.getMessage());
+        }
     }
     public void saveData(String fileName,String data) throws Exception {
         saveFile(saveCodeModuleData+"/"+fileName+".json",data);

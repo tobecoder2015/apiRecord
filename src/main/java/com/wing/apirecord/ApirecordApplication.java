@@ -12,6 +12,7 @@ import com.wing.apirecord.core.tools.TransferUtil;
 import com.wing.apirecord.core.filter.ContentTypeFilter;
 import com.wing.apirecord.core.filter.FilterChain;
 import com.wing.apirecord.core.filter.MethodFilter;
+import com.wing.apirecord.service.FileService;
 import com.wing.apirecord.service.FilterService;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
@@ -42,7 +43,7 @@ public class ApirecordApplication {
 		FilterChain.addFilter(new UrlFilter(FilterService.urls));
 		FilterChain.addFilter(new MethodFilter(FilterService.methods));
 
-
+		FileService.setSavePath(null);
 
 		new NettyHttpProxyServer().initProxyInterceptFactory(() -> new HttpProxyIntercept() {
 

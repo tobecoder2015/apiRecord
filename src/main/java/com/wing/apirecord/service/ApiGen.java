@@ -40,7 +40,6 @@ public class ApiGen {
                     "\n" +
                     "        Call<ResponseBody> call = service."+methodName+"(requestBody,headerMap);\n" +
                     "        return sendRequest(call);\n" +
-                    "\n" +
                     "    }";
         }else {
 
@@ -49,7 +48,8 @@ public class ApiGen {
                 "\n" +
                 "                autoAPIServices service = retrofit().create(autoAPIServices.class);\n" +
                 "                Call<ResponseBody> call = service."+methodName+"(queryMaps,headerMap);\n" +
-                "                return sendRequest(call);";
+                "                return sendRequest(call);\n"+
+                "};";
         }
         return method;
     }

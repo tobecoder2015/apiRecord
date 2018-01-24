@@ -5,6 +5,7 @@ import com.wing.apirecord.core.filter.ContentTypeFilter;
 import com.wing.apirecord.core.filter.FilterChain;
 import com.wing.apirecord.core.filter.MethodFilter;
 import com.wing.apirecord.core.filter.UrlFilter;
+import com.wing.apirecord.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +13,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class FilterService {
 
-    public static String urls="3027-mgtoo-sl-mta,api";
-    public static String methods="get,post";
-    public static String contentType="application/json,text/plain,text/html,application/xhtml+xml,application/xml";
-
+    public static String urls= ConfigUtil.getConfig("urls");
+    public static String methods=ConfigUtil.getConfig("methods");
+    public static String contentType=ConfigUtil.getConfig("contentType");
 
     public void setFilter(){
         FilterChain.clear();

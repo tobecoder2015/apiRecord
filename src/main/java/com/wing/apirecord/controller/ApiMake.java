@@ -39,6 +39,11 @@ public class ApiMake {
 
     }
 
+    @GetMapping(path = "api/{id}/del")
+    public ModelAndView del(@PathVariable int id ){
+        RecordMap.getRecord().remove(id-1);
+        return new ModelAndView("index", "records", RecordMap.getRecord());
+    }
 
     @GetMapping(path = "api/{id}")
     public ModelAndView api(@PathVariable int id ){

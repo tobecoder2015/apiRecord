@@ -3,6 +3,7 @@ package com.wing.apirecord.controller;
 
 import com.wing.apirecord.service.FileService;
 import com.wing.apirecord.service.FilterService;
+import com.wing.apirecord.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,13 @@ public class ConfigCenter {
 
             FileService.saveCodeModule=codeModule;
             FileService.saveCodeRoot=codeRoot;
+
+            ConfigUtil.setConfig("contentType",contentType);
+            ConfigUtil.setConfig("methods",methods);
+            ConfigUtil.setConfig("urls",urls);
+            ConfigUtil.setConfig("saveCodeModule",codeModule);
+            ConfigUtil.setConfig("saveCodeRoot",codeRoot);
+            ConfigUtil.saveConfig();
             return "更新成功";
         }catch (Exception e){
             return "服务器出错："+e.getMessage();
