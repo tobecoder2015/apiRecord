@@ -26,20 +26,19 @@ public class MethodGen {
                 "import org.testng.Assert;\n" +
                 "import org.testng.annotations.BeforeClass;\n" +
                 "import org.testng.annotations.Test;\n" +
-                "import utils.DbUtil;\n" +
-                "import utils.SqlDb;\n" +
+                "import data.lib.db.DBClient;\n" +
+                "import data.lib.db.DBUtil;\n" +
                 "\n" +
                 "\n" +
                 "\n" +
                 "public class "+className+" extends TestBase {\n" +
                 "\n" +
                 "    public static Api sApi = null;\n" +
-                "    public static  SqlDb mintDb;\n" +
+                "    public static DBClient client=new DBUtil().getClient(\"default\");\n" +
                 "\n" +
                 "    @BeforeClass\n" +
                 "    public void beforeClass() {\n" +
                 "        sApi = new Api();\n" +
-                "        mintDb = DbUtil.getDb();\n" +
                 "    }\n" +
                 "\n" +
                 "\n" +
