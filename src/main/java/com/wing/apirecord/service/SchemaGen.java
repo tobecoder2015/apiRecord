@@ -12,7 +12,7 @@ public class SchemaGen {
     public String getSchema(Record record){
         String result=record.getResponse().getBody();
         try {
-            return "["+Unirest.post("http://apidiffy.sankuai.com/quicktest/generateschema").field("json",result).asJson().getBody().getObject().getString("schema")+"]";
+            return Unirest.post("http://apidiffy.sankuai.com/quicktest/generateschema").field("json",result).asJson().getBody().getObject().getString("schema");
         }catch (Exception e){
             log.error("获取schema 出错",e);
             return e.getMessage();

@@ -27,3 +27,4 @@ nbdist/
 .idea/
 .mvn/
 .DS_Store
+config.properties

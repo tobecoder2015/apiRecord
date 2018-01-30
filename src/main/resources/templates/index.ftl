@@ -11,6 +11,13 @@
 <body>
 <style>
     body{min-height:20px;padding-top:20px;padding-right:10px;padding-left:10px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:10px;margin-left:10px}
+    .ellipsis{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
 </style>
 <ul class="nav nav-tabs">
     <li class="active"><a href="/index">API录制</a></li>
@@ -32,8 +39,8 @@
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>id</th>
-                            <th>时间</th>
+                            <#--<th>id</th>-->
+                            <#--<th>时间</th>-->
                             <th>方法</th>
                             <th>路径</th>
                             <th>返回值</th>
@@ -43,11 +50,11 @@
                         <tbody>
                         <#list records as record >
                         <tr>
-                        <td>${record.id}</td>
-                        <td>${record.createTime}</td>
+                        <#--<td>${record.id}</td>-->
+                        <#--<td>${record.createTime}</td>-->
                         <td>${record.request.method}</td>
                         <td>${record.request.path}</td>
-                        <td>${record.response.body}</td>
+                        <td class="ellipsis">${record.response.body}</td>
                         <td>
                             <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
                             <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
