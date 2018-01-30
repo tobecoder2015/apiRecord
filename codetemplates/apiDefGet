@@ -1,0 +1,2 @@
+ @GET("{path}")
+ Call<ResponseBody> {methodName}( {pathPara} @QueryMap Map<String, Object> map, @HeaderMap Map<String, String> headers);

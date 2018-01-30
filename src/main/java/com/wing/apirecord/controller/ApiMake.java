@@ -60,6 +60,7 @@ public class ApiMake {
             }
         }
         Map api=new HashMap();
+        UrlGen.processUrl(record);
         api.put("apiDef",apiGen.apiDef(record));
         api.put("apiMethod",apiGen.apiMethod(record));
 
@@ -73,6 +74,7 @@ public class ApiMake {
     public String apiWrite(@PathVariable int id ){
         Record record=RecordMap.getRecord().get(id-1);
         try {
+            UrlGen.processUrl(record);
             String fileName=NameGen.getClassName(record);
             fileService.saveSchema(fileName,schemaGen.getSchema(record));
             fileService.saveCodeModuleTestsuites(fileName,methodGen.method(record));

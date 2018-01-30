@@ -1,0 +1,47 @@
+package {packageName}.testsuites;
+
+import com.alibaba.fastjson.JSONObject;
+import com.meituan.hbqa.api.lib.AssertUtil;
+import com.meituan.hbqa.api.lib.ResponseMap;
+import com.meituan.hbqa.api.lib.TestBase;
+import data.lib.db.DBClient;
+import data.lib.db.DBUtil;
+import {packageName}.Api;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+
+
+
+
+public class {className} extends TestBase {
+
+    public static Api sApi = null;
+    public static DBClient client=new DBUtil().getClient("default");
+
+    @BeforeClass
+    public void beforeClass() {
+        sApi = new Api();
+    }
+
+
+    @Test(dataProvider = "data")
+    public void apiTest(JSONObject request, JSONObject expect, String comments) throws Exception {
+
+        ResponseMap responseMap = sApi.{methodName}(request);
+
+
+        //状态码测试
+        AssertUtil.assertHttp200(responseMap);
+
+        //jsonSchema检查
+        AssertUtil.assertJsonSchema(responseMap);
+
+        //json 校验
+        JSONObject result=JSONObject.parseObject(responseMap.getResponseBody());
+        Assert.assertEquals(result.getIntValue("status"),0);
+        Assert.assertEquals(result.getString("message"),"成功");
+    }
+
+}
+

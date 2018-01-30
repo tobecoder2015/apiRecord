@@ -22,7 +22,7 @@ public class Request {
     private int port = 80;//请求的主机信息
     private Map<String, String> headers; //请求header
     private Map<String, String> queryParaMap; //请求参数的键值对
-    private List<String> queryParaPath; //请求参数的路径参数
+    private Map<String, String> queryParaPath; //请求参数的路径参数
     private String body=""; //body体
 
     public  void addHeader(String key,String value) {

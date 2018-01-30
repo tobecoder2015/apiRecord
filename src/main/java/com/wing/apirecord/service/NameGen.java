@@ -2,20 +2,13 @@ package com.wing.apirecord.service;
 
 import com.wing.apirecord.core.record.Record;
 
+
 public class NameGen {
 
+    private static final int size=3;
 
     public static String getClassName(Record record){
-        String path =record.getRequest().getPath();
-        String[] paths=path.split("\\/");
-        String name=null;
-        if(paths.length>=3)
-            name=paths[paths.length-3].substring(0,1).toUpperCase()+paths[paths.length-3].substring(1)
-                    +paths[paths.length-2].substring(0,1).toUpperCase()+paths[paths.length-2].substring(1)
-                    +paths[paths.length-1].substring(0,1).toUpperCase()+paths[paths.length-1].substring(1);
-        else
-            name=paths[paths.length-1].substring(0,1).toUpperCase()+paths[paths.length-1].substring(1);
-        return name+"Test";
+        return process(record).substring(0,1).toUpperCase()+process(record).substring(1)+"Test";
     }
 
 
@@ -24,15 +17,20 @@ public class NameGen {
     }
 
     public static  String getMethodName(Record record){
+        return process(record);
+    }
+
+
+    private static  String process(Record record){
         String path =record.getRequest().getPath();
         String[] paths=path.split("\\/");
-        String name=null;
-        if(paths.length>=3)
-            name=paths[paths.length-3]
-                    +paths[paths.length-2].substring(0,1).toUpperCase()+paths[paths.length-2].substring(1)
-                    +paths[paths.length-1].substring(0,1).toUpperCase()+paths[paths.length-1].substring(1);
-        else
-            name=paths[paths.length-1];
-        return name;
+        int index=paths.length-1;
+        while(index>=0){
+            if(!paths[index].startsWith("{")){
+                    return paths[index];
+                }
+            index--;
+        }
+        return null;
     }
 }

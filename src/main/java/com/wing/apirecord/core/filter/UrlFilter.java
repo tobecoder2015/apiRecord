@@ -17,9 +17,9 @@ public class UrlFilter implements Filter {
             Request request=(Request)message.getMsg();
             String[] urls = pattern.split(",");
 
-            if (request.getHost().contains("127.0.0.1")||request.getHost().contains("localhost")) {
-                return true;
-            }
+//            if (request.getHost().contains("127.0.0.1")||request.getHost().contains("localhost")) {
+//                return true;
+//            }
 
             boolean ok = true;
             for (String url : urls) {

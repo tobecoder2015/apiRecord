@@ -1,0 +1,13 @@
+public ResponseMap {methodName}(JSONObject request) throws IOException {
+
+        {apiParaProcess}
+
+        Map<String, Object> bodyMaps = (Map) JSON.parse(request.get("body").toString());
+        apiServices service = retrofit().create(apiServices.class);
+
+        String body = bodyMaps.toString();
+        RequestBody requestBody = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), body);
+
+        Call<ResponseBody> call = service.{methodName}( {pathParaKey} requestBody, headerMap);
+        return sendRequest(call);
+    }

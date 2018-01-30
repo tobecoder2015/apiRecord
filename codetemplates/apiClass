@@ -1,0 +1,33 @@
+package {packageName};
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.meituan.hbqa.api.lib.HttpRequestService;
+import com.meituan.hbqa.api.lib.ResponseMap;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
+public class Api extends HttpRequestService {
+
+    public static Map<String, String> headerMap = new HashMap<String, String>();
+
+    static {
+        headerMap.put("cookie", "ssoid=xxxxx");  //设置首部header
+    }
+
+    public static interface apiServices {
+
+        //{apiDef}
+    }
+
+
+    //{apiMethod}
+}

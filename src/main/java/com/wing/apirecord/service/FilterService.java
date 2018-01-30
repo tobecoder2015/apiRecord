@@ -1,6 +1,5 @@
 package com.wing.apirecord.service;
 
-import com.wing.apirecord.controller.ConfigCenter;
 import com.wing.apirecord.core.filter.ContentTypeFilter;
 import com.wing.apirecord.core.filter.FilterChain;
 import com.wing.apirecord.core.filter.MethodFilter;

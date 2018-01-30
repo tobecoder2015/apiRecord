@@ -1,0 +1,3 @@
+  @Headers({"Content-Type: application/json", "Accept: application/json"})
+  @POST("{path}")
+  Call<ResponseBody> {methodName}( {pathPara} @Body RequestBody requestbody, @HeaderMap Map<String, String> headers);

@@ -1,19 +1,13 @@
 package com.wing.apirecord.service;
 
-import com.wing.apirecord.core.filter.ContentTypeFilter;
-import com.wing.apirecord.core.filter.FilterChain;
-import com.wing.apirecord.core.filter.MethodFilter;
-import com.wing.apirecord.core.filter.UrlFilter;
+
 import com.wing.apirecord.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
-
 import java.io.File;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 
 @Component
 @Slf4j
@@ -22,9 +16,19 @@ public class FileService {
     public static String saveCodeRoot = ConfigUtil.getConfig("saveCodeRoot");
     public static String saveCodeBase = null;
     public static String saveCodeModule = ConfigUtil.getConfig("saveCodeModule");
-    public static String saveCodeModuleData = null;
-    public static String saveCodeModuleSchema = null;
-    public static String saveCodeModuleTestsuites = null;
+    private static String saveCodeModuleData = null;
+    private static String saveCodeModuleSchema = null;
+    private static String saveCodeModuleTestsuites = null;
+    private static String templatesRoot = null;
+    private  static String userDir = System.getProperty("user.dir");
+
+
+    public static final String API_CLASS = "apiClass";
+    public static final String API_DEF_GET = "apiDefGet";
+    public static final String API_DEF_POST = "apiDefPost";
+    public static final String API_METHOD_GET = "apiMethodGet";
+    public static final String API_METHOD_POST = "apiMethodPost";
+    public static final String METHOD = "method";
 
 
     public static void setSavePath(String savePath){
@@ -34,6 +38,7 @@ public class FileService {
         saveCodeModuleData=saveCodeBase+"/data";
         saveCodeModuleSchema=saveCodeBase+"/schema";
         saveCodeModuleTestsuites=saveCodeBase+"/testsuites";
+        templatesRoot=userDir+"/codetemplates/";
 
         try {
             FileUtils.forceMkdir(new File(saveCodeModuleData));
@@ -62,11 +67,6 @@ public class FileService {
     }
 
 
-    public String readFile(String readPath) throws Exception{
-        return FileUtils.readFileToString(new File(readPath), Charset.forName("utf-8"));
-    }
-
-
     public String getApiDef() throws Exception{
         File file=new File(saveCodeBase + "/Api.java");
         if(file.exists()) {
@@ -79,6 +79,23 @@ public class FileService {
     public void writeApiDef(String data) throws Exception{
         FileUtils.write(new File(saveCodeBase + "/Api.java"),data, Charset.forName("utf-8"));
     }
+
+    public String getTemplates(String template) {
+        String  path=templatesRoot + template;
+        try {
+            File file = new File(path);
+            if (file.exists()) {
+                return FileUtils.readFileToString(new File(path), Charset.forName("utf-8"));
+            } else {
+                return null;
+            }
+        }catch (Exception e){
+            log.error(path+" 代码模板文件不存在",e);
+            return null;
+        }
+    }
+
+
 
 
 }
