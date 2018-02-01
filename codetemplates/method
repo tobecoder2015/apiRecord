@@ -22,6 +22,14 @@ public class {className} extends TestBase {
     @BeforeClass
     public void beforeClass() {
         sApi = new Api();
+        //数据创建
+    }
+
+
+
+    @AfterClass
+    public void afterClass() {
+        //数据清理或者状态恢复
     }
 
 

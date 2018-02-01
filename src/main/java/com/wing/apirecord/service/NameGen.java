@@ -2,6 +2,9 @@ package com.wing.apirecord.service;
 
 import com.wing.apirecord.core.record.Record;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class NameGen {
 
@@ -25,12 +28,26 @@ public class NameGen {
         String path =record.getRequest().getPath();
         String[] paths=path.split("\\/");
         int index=paths.length-1;
-        while(index>=0){
+        List<String> list=new ArrayList<>();
+        int count=size;
+        while(index>=0&&count>0){
             if(!paths[index].startsWith("{")){
-                    return paths[index];
+                list.add(paths[index]);
+                count--;
                 }
             index--;
         }
-        return null;
+
+        StringBuilder sb=new StringBuilder();
+        boolean isstart=true;
+        for (int i=list.size()-1;i>=0;i--){
+            if(isstart) {
+                sb.append(list.get(i).substring(0, 1).toUpperCase() + list.get(i).substring(1));
+                isstart=false;
+            } else{
+                sb.append(list.get(i));
+            }
+        }
+        return sb.toString();
     }
 }

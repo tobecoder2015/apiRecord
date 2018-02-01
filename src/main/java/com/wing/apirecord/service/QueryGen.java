@@ -44,7 +44,7 @@ public class QueryGen {
         oneQueryPara.put("response",new JSONObject());
 
         queryPara.add(oneQueryPara);
-        return JsonFormat.format("["+oneQueryPara.toJSONString().replace("\\\"","\"")+"]");
+        return JsonFormat.format("["+oneQueryPara.toJSONString()+"]");//.replace("\\\"","\"")
 
     }
 
