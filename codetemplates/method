@@ -8,6 +8,7 @@ import data.lib.db.DBClient;
 import data.lib.db.DBUtil;
 import {packageName}.Api;
 import org.testng.Assert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -49,6 +50,8 @@ public class {className} extends TestBase {
         JSONObject result=JSONObject.parseObject(responseMap.getResponseBody());
         Assert.assertEquals(result.getIntValue("status"),0);
         Assert.assertEquals(result.getString("message"),"成功");
+        AssertUtil.assertJsonEquals(responseMap,result, JSONCompareMode.LENIENT,null);
+
     }
 
 }

@@ -28,3 +28,4 @@ nbdist/
 .mvn/
 .DS_Store
 config.properties
+~/

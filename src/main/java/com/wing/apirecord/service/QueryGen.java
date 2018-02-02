@@ -41,10 +41,23 @@ public class QueryGen {
         }
 
         oneQueryPara.put("request",requset);
-        oneQueryPara.put("response",new JSONObject());
+        oneQueryPara.put("response",JSONObject.parseObject(record.getResponse().getBody()));
 
         queryPara.add(oneQueryPara);
-        return JsonFormat.format("["+oneQueryPara.toJSONString()+"]");//.replace("\\\"","\"")
+        StringBuilder sb=new StringBuilder();
+        sb.append("[\n");
+        sb.append(" {\n");
+        sb.append("     \"request\":{\n");
+        sb.append("         \"query\":"+requset.getJSONObject("query").toJSONString()+",\n");
+        sb.append("         \"body\":"+requset.getJSONObject("body").toJSONString()+"\n");
+        sb.append("     },\n");
+        sb.append("     \"comments\":\"自动生成\",\n");
+        sb.append("     \"body\":"+oneQueryPara.getJSONObject("response").toJSONString()+"\n");
+        sb.append(" }\n");
+        sb.append("]\n");
+
+        return sb.toString();
+//        return JsonFormat.format("["+oneQueryPara.toJSONString()+"]");//.replace("\\\"","\"")
 
     }
 
