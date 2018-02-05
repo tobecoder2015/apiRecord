@@ -1,0 +1,1 @@
+java  -Xms200m -Xmx200m -XX:+UseParallelOldGC -jar ./target/apirecord-1.0.0.jar

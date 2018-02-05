@@ -8,10 +8,10 @@ import java.util.List;
 
 public class NameGen {
 
-    private static final int size=3;
+    private static final int size=2;
 
     public static String getClassName(Record record){
-        return process(record).substring(0,1).toUpperCase()+process(record).substring(1)+"Test";
+        return process(record)+"Test";
     }
 
 
@@ -20,7 +20,7 @@ public class NameGen {
     }
 
     public static  String getMethodName(Record record){
-        return process(record);
+        return process(record).substring(0,1).toLowerCase()+process(record).substring(1);
     }
 
 
@@ -42,10 +42,10 @@ public class NameGen {
         boolean isstart=true;
         for (int i=list.size()-1;i>=0;i--){
             if(isstart) {
-                sb.append(list.get(i).substring(0, 1).toUpperCase() + list.get(i).substring(1));
+                sb.append(list.get(i).substring(0,1).toUpperCase()+list.get(i).substring(1));
                 isstart=false;
             } else{
-                sb.append(list.get(i));
+                sb.append(list.get(i).substring(0,1).toUpperCase()+list.get(i).substring(1));
             }
         }
         return sb.toString();

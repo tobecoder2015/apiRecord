@@ -20,7 +20,7 @@ public class Api extends HttpRequestService {
     public static Map<String, String> headerMap = new HashMap<String, String>();
 
     static {
-        headerMap.put("cookie", "ssoid=xxxxx");  //设置首部header
+        headerMap.put("cookie","ssoid="+ SSOUtil.getSSOId());  //设置首部header
     }
 
     public static interface apiServices {

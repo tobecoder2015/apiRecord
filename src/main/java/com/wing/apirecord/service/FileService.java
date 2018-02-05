@@ -49,6 +49,10 @@ public class FileService {
         }
     }
 
+    public static void updateSavePath(){
+        setSavePath(null);
+    }
+
     public void saveData(String fileName,String data) throws Exception {
         saveFile(saveCodeModuleData+"/"+fileName+".json",data);
     }

@@ -56,6 +56,7 @@ public class ConfigCenter {
 
             FileService.saveCodeModule=codeModule;
             FileService.saveCodeRoot=codeRoot;
+            FileService.updateSavePath();
 
             ConfigUtil.setConfig("contentType",contentType);
             ConfigUtil.setConfig("methods",methods);
