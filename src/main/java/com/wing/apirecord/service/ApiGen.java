@@ -17,16 +17,19 @@ public class ApiGen {
     @Resource
     FileService fileService;
 
+    @Resource
+    NameGen nameGen;
+
     public String apiClass(Record record) throws Exception {
 
-        String packageName = NameGen.getPackageName(record);
-        String methodName = NameGen.getMethodName(record);
+        String packageName = nameGen.getPackageName(record);
+        String methodName = nameGen.getMethodName(record);
         String apiClass=fileService.getApiDef();
         if(apiClass==null) {
             apiClass = fileService.getTemplates(FileService.API_CLASS);
             apiClass=apiClass.replace("{packageName}",packageName);
         }
-        if(!apiClass.contains(methodName)) {
+        if(!fileService.isExsit(methodName)) {
             apiClass = apiClass.replace("//{apiDef}", apiDef(record) + "\n\n      //{apiDef}");
             apiClass = apiClass.replace("//{apiMethod}", apiMethod(record) + "\n\n        //{apiMethod}");
         }
@@ -34,7 +37,7 @@ public class ApiGen {
     }
 
     public String apiDef(Record record) {
-        String methodName = NameGen.getMethodName(record);
+        String methodName = nameGen.getMethodName(record);
         String pathPara=apiPathPara(record);
         String apiDef="";
         if (record.getRequest().getMethod().equalsIgnoreCase("post")) {
@@ -92,7 +95,7 @@ public class ApiGen {
 
 
     public String apiMethod(Record record) {
-        String methodName = NameGen.getMethodName(record);
+        String methodName = nameGen.getMethodName(record);
         String method=null;
         if (record.getRequest().getMethod().equalsIgnoreCase("post")) {
            method= fileService.getTemplates(FileService.API_METHOD_POST);

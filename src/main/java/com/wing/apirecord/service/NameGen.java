@@ -1,30 +1,35 @@
 package com.wing.apirecord.service;
 
 import com.wing.apirecord.core.record.Record;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Component
 public class NameGen {
 
-    private static final int size=2;
+    @Resource FileService fileService;
 
-    public static String getClassName(Record record){
+    private  final int size=2;
+
+    public  String getClassName(Record record){
         return process(record)+"Test";
     }
 
 
-    public static String getPackageName(Record record){
+    public  String getPackageName(Record record){
         return FileService.saveCodeModule;
     }
 
-    public static  String getMethodName(Record record){
+    public   String getMethodName(Record record){
         return process(record).substring(0,1).toLowerCase()+process(record).substring(1);
     }
 
 
-    private static  String process(Record record){
+    private   String process(Record record){
         String path =record.getRequest().getPath();
         String[] paths=path.split("\\/");
         int index=paths.length-1;
@@ -48,6 +53,10 @@ public class NameGen {
                 sb.append(list.get(i).substring(0,1).toUpperCase()+list.get(i).substring(1));
             }
         }
-        return sb.toString();
+        String methodName= sb.toString();
+        if(fileService.isExsit(methodName)){
+            return methodName+"2";
+        }
+        return methodName;
     }
 }

@@ -25,6 +25,9 @@ public class ApiMake {
     MethodGen methodGen;
 
     @Resource
+    NameGen nameGen;
+
+    @Resource
     FileService fileService;
 
     @GetMapping(path = "dump")
@@ -75,7 +78,7 @@ public class ApiMake {
         Record record=RecordMap.getRecord().get(id-1);
         try {
             UrlGen.processUrl(record);
-            String fileName=NameGen.getClassName(record);
+            String fileName=nameGen.getClassName(record);
             fileService.saveSchema(fileName,schemaGen.getSchema(record));
             fileService.saveCodeModuleTestsuites(fileName,methodGen.method(record));
             fileService.saveData(fileName,queryGen.getQuery(record));

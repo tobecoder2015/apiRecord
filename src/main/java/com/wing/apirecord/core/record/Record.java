@@ -3,6 +3,7 @@ package com.wing.apirecord.core.record;
 import com.wing.apirecord.core.model.Request;
 import com.wing.apirecord.core.model.Response;
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class Record {
@@ -29,5 +30,10 @@ public class Record {
         }
         return false;
 
+    }
+
+    @Override
+    public String toString(){
+        return request.getUrl()+" "+response.getBody();
     }
 }

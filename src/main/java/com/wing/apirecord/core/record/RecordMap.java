@@ -22,9 +22,11 @@ public class RecordMap {
         return finishList;
     }
     public static  void  addRecord(Record record) {
+
         for(Record one:finishList){
             if(record.equals(one)){
-                return;
+                finishList.remove(one);
+                break;
             }
         }
         record.setId(finishList.size()+1);
@@ -58,14 +60,18 @@ public class RecordMap {
                 record.setRequestBody(record.getRequest().getBody() + message.getMsg());
                 break;
             case Message.RESPONSE_HEAD:
+                log.debug("收到response header "+message.getMsg());
                 record.setResponse((Response) message.getMsg());
                 break;
             case Message.RESPONSE_BODY:
+                log.debug("收到response content "+message.getMsg());
                 record.getResponse().addBytes((byte[]) message.getMsg());
                 if(message.isFinish()) {
                     addRecord(record);
                     recordMap.remove(message.getId());
                     record.getResponse().generateBody();
+                    log.debug("生成接口数据"+record.toString());
+
                 }
                 break;
 

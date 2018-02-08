@@ -80,6 +80,20 @@ public class FileService {
         }
     }
 
+
+    public boolean isExsit(String method) {
+        File file=new File(saveCodeBase + "/Api.java");
+        String content="";
+        if(file.exists()) {
+            try {
+                content=  FileUtils.readFileToString(new File(saveCodeBase + "/Api.java"), Charset.forName("utf-8"));
+            }catch (Exception e){
+                log.error("读取api 文件失败",e);
+            }
+        }
+        return content.toLowerCase().contains(method.toLowerCase()+"(");
+    }
+
     public void writeApiDef(String data) throws Exception{
         FileUtils.write(new File(saveCodeBase + "/Api.java"),data, Charset.forName("utf-8"));
     }

@@ -52,7 +52,7 @@ public class QueryGen {
         sb.append("         \"body\":"+requset.getJSONObject("body").toJSONString()+"\n");
         sb.append("     },\n");
         sb.append("     \"comments\":\"自动生成\",\n");
-        sb.append("     \"body\":"+oneQueryPara.getJSONObject("response").toJSONString()+"\n");
+        sb.append("     \"response\":"+oneQueryPara.getJSONObject("response").toJSONString()+"\n");
         sb.append(" }\n");
         sb.append("]\n");
 

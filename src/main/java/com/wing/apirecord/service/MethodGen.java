@@ -14,10 +14,13 @@ public class MethodGen {
     @Resource
     FileService fileService;
 
+    @Resource
+    NameGen nameGen;
+
     public String method(Record record) {
-        String className = NameGen.getClassName(record);
-        String methodName = NameGen.getMethodName(record);
-        String packageName = NameGen.getPackageName(record);
+        String className = nameGen.getClassName(record);
+        String methodName = nameGen.getMethodName(record);
+        String packageName = nameGen.getPackageName(record);
 
         String method=fileService.getTemplates(FileService.METHOD);
         method=method.replace("{packageName}",packageName);

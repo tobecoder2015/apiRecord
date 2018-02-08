@@ -20,7 +20,7 @@ public class ContentTypeFilter implements Filter {
 
             boolean ok = true;
             for (String contentType : contentTypes) {
-                if (response.getHeaders().containsKey("Content-Type")&&response.getHeaders().get("Content-Type").contains(contentType)) {
+                if (!response.getHeaders().containsKey("Content-Type")||response.getHeaders().containsKey("Content-Type")&&response.getHeaders().get("Content-Type").contains(contentType)) {
                     ok = false;
                     break;
                 }

@@ -23,6 +23,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.nio.charset.Charset;
+
 @SpringBootApplication
 @EnableAutoConfiguration
 @Slf4j
@@ -49,6 +51,7 @@ public class ApirecordApplication {
 
 			@Override
 			public boolean beforeRequest(Channel clientChannel, HttpRequest httpRequest) {
+				log.debug("request "+clientChannel.id().asShortText()+"   "+httpRequest.toString());
 
 				Request request = TransferUtil.toRequest(httpRequest);
 				Message message = new Message(clientChannel.id().asShortText(), Message.REQUEST_HEAD, request);
@@ -64,6 +67,8 @@ public class ApirecordApplication {
 
 			@Override
 			public boolean beforeRequest(Channel clientChannel, HttpContent httpContent) {
+				log.debug("request httpContent:"+clientChannel.id().asShortText()+"   "+clientChannel.id().asShortText()+"  "+httpContent.content().toString(Charset.defaultCharset()));
+
 				if(!RecordMap.containKey(clientChannel.id().asShortText()))
 					return true;
 				Message message = new Message(clientChannel.id().asShortText(), Message.REQUEST_BODY, httpContent.content().toString(io.netty.util.CharsetUtil.UTF_8));
@@ -79,6 +84,7 @@ public class ApirecordApplication {
 
 			@Override
 			public boolean afterResponse(Channel clientChannel, Channel proxyChannel, HttpResponse httpResponse) {
+				log.debug("httpResponse:"+clientChannel.id().asShortText()+"  "+httpResponse.toString());
 				if(!RecordMap.containKey(clientChannel.id().asShortText()))
 					return true;
 				Response response = TransferUtil.toReponse(httpResponse);
@@ -95,6 +101,8 @@ public class ApirecordApplication {
 
 			@Override
 			public boolean afterResponse(Channel clientChannel, Channel proxyChannel, HttpContent httpContent){
+				log.debug("httpContent:"+clientChannel.id().asShortText()+"  "+httpContent.content().toString(Charset.defaultCharset()));
+
 				if(!RecordMap.containKey(clientChannel.id().asShortText()))
 					return true;
 
