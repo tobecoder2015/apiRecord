@@ -33,5 +33,4 @@ public class UrlGen {
         record.getRequest().setQueryParaPath(queryParaPath);
         record.getRequest().setPath(url);
     }
-
 }

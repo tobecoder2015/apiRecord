@@ -90,4 +90,16 @@ public class ApiMake {
             return e.getMessage();
         }
     }
+
+
+    @GetMapping(path = "api/clear")
+    public String apiClear(){
+        try {
+            RecordMap.getRecord().clear();
+            return "清空成功";
+        }catch (Exception e){
+            log.error("清空失败",e);
+            return e.getMessage();
+        }
+    }
 }

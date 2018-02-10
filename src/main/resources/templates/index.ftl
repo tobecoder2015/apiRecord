@@ -15,7 +15,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
     }
 </style>
@@ -28,9 +28,10 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <form class="form-inline">
-                        <div class="row">
+                        <div class="row">ll
                             <div class="col-xs-6">
                                 <label >录制列表</label>
+                                <button type="button" class="btn btn-success" onclick="clearAll();javascript:window.location.href='index'">清空</button>
                             </div>
                         </div>
                     </form>
@@ -41,10 +42,10 @@
                         <tr>
                             <#--<th>id</th>-->
                             <#--<th>时间</th>-->
-                            <th>方法</th>
+                                <th>操作</th>
+                                <th>方法</th>
                             <th>路径</th>
                             <th>返回值</th>
-                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,15 +53,15 @@
                         <tr>
                         <#--<td>${record.id}</td>-->
                         <#--<td>${record.createTime}</td>-->
+                            <td>
+                                <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
+                                <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
+                                <button type="button" class="btn btn-success" onclick="del(${record.id});javascript:window.location.href='index'">删除</button>
+                            </td>
                         <td>${record.request.method}</td>
                         <td>${record.request.path}</td>
                         <td class="ellipsis">${record.response.body}</td>
-                        <td>
-                            <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
-                            <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
-                            <button type="button" class="btn btn-success" onclick="del(${record.id});javascript:window.location.href='index'">删除</button>
 
-                        </td>
                         <tr>
                         </#list>
                         </tbody>
@@ -98,6 +99,18 @@
     function del(id) {
         $.ajax({
             url:"api/"+id+"/del",
+            type:"get",
+            success:function(data){
+                alert(data);
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });
+    }
+    function clearAll() {
+        $.ajax({
+            url:"api/clear",
             type:"get",
             success:function(data){
                 alert(data);

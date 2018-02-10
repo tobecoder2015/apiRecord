@@ -1,6 +1,7 @@
 package com.wing.apirecord.service;
 
 
+import com.wing.apirecord.core.record.Record;
 import com.wing.apirecord.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -81,7 +82,7 @@ public class FileService {
     }
 
 
-    public boolean isExsit(String method) {
+    public boolean isApiExsit(Record record) {
         File file=new File(saveCodeBase + "/Api.java");
         String content="";
         if(file.exists()) {
@@ -91,8 +92,36 @@ public class FileService {
                 log.error("读取api 文件失败",e);
             }
         }
-        return content.toLowerCase().contains(method.toLowerCase()+"(");
+        return content.contains(record.getRequest().getPath());
     }
+
+    public boolean isApiNameExist(String methodName) {
+        File file=new File(saveCodeBase + "/Api.java");
+        String content="";
+        if(file.exists()) {
+            try {
+                content=  FileUtils.readFileToString(new File(saveCodeBase + "/Api.java"), Charset.forName("utf-8"));
+            }catch (Exception e){
+                log.error("读取api 文件失败",e);
+            }
+        }
+        return content.toLowerCase().contains(methodName.toLowerCase()+"(");
+    }
+
+    public boolean isApiNameRepeat(String methodName) {
+        File file=new File(saveCodeBase + "/Api.java");
+        String content="";
+        if(file.exists()) {
+            try {
+                content=  FileUtils.readFileToString(new File(saveCodeBase + "/Api.java"), Charset.forName("utf-8"));
+            }catch (Exception e){
+                log.error("读取api 文件失败",e);
+            }
+        }
+        return content.toLowerCase().contains(methodName.toLowerCase()+"2");
+    }
+
+
 
     public void writeApiDef(String data) throws Exception{
         FileUtils.write(new File(saveCodeBase + "/Api.java"),data, Charset.forName("utf-8"));

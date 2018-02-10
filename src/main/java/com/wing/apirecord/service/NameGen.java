@@ -54,9 +54,12 @@ public class NameGen {
             }
         }
         String methodName= sb.toString();
-        if(fileService.isExsit(methodName)){
+        if(!fileService.isApiExsit(record)&&fileService.isApiNameExist(methodName)){
             return methodName+"2";
+        }else if(fileService.isApiExsit(record)&&fileService.isApiNameExist(methodName)&&fileService.isApiNameRepeat(methodName)){
+            return methodName+"2";
+        }else {
+            return methodName;
         }
-        return methodName;
     }
 }

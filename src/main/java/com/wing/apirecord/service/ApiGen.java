@@ -1,10 +1,8 @@
 package com.wing.apirecord.service;
 
-import com.alibaba.fastjson.JSON;
 import com.wing.apirecord.core.record.Record;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.annotation.Resource;
 import java.util.Iterator;
@@ -23,13 +21,12 @@ public class ApiGen {
     public String apiClass(Record record) throws Exception {
 
         String packageName = nameGen.getPackageName(record);
-        String methodName = nameGen.getMethodName(record);
         String apiClass=fileService.getApiDef();
         if(apiClass==null) {
             apiClass = fileService.getTemplates(FileService.API_CLASS);
             apiClass=apiClass.replace("{packageName}",packageName);
         }
-        if(!fileService.isExsit(methodName)) {
+        if(!fileService.isApiExsit(record)) {
             apiClass = apiClass.replace("//{apiDef}", apiDef(record) + "\n\n      //{apiDef}");
             apiClass = apiClass.replace("//{apiMethod}", apiMethod(record) + "\n\n        //{apiMethod}");
         }
