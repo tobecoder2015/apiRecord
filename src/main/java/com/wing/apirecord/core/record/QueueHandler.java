@@ -14,7 +14,7 @@ public class QueueHandler implements Runnable {
     }
 
     /**
-     * 业务处理时限
+     * 业务处理
      */
     public void doBusiness(){
         Message message=(Message) obj;

@@ -24,7 +24,7 @@ public class UrlGen {
             if(queryParaPath==null)
                 queryParaPath=new HashMap<>();
             String pv=  m.group();
-            url=url.replace(pv,"/{pathPara"+index+"}/");
+            url=url.replaceFirst(pv,"/{pathPara"+index+"}/");
             pv=pv.substring(1,pv.length()-1);
             queryParaPath.put("pathPara"+index,pv);
             index++;
@@ -33,4 +33,5 @@ public class UrlGen {
         record.getRequest().setQueryParaPath(queryParaPath);
         record.getRequest().setPath(url);
     }
+
 }
