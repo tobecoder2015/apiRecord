@@ -56,6 +56,7 @@
                             <td>
                                 <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
                                 <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
+                                <button type="button" class="btn btn-success" onclick="writeSchema(${record.id});">保存Schema</button>
                                 <button type="button" class="btn btn-success" onclick="del(${record.id});javascript:window.location.href='index'">删除</button>
                             </td>
                         <td>${record.request.method}</td>
@@ -84,6 +85,20 @@
     </footer>
 </body>
 <script>
+
+    function writeSchema(id) {
+        $.ajax({
+            url:"api/"+id+"/writeSchema",
+            type:"get",
+            success:function(data){
+                alert(data);
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });
+    }
+
     function writeFile(id) {
         $.ajax({
             url:"api/"+id+"/write",

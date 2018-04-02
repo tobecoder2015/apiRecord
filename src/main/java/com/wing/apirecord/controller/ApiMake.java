@@ -91,6 +91,21 @@ public class ApiMake {
         }
     }
 
+    @GetMapping(path = "api/{id}/writeSchema")
+    public String apiWriteSchema(@PathVariable int id ){
+        Record record=RecordMap.getRecord().get(id-1);
+        try {
+            UrlGen.processUrl(record);
+            String fileName=nameGen.getClassName(record);
+            fileService.saveSchema(fileName,schemaGen.getSchema(record));
+            return "写入Schema文件成功："+FileService.saveCodeBase;
+
+        }catch (Exception e){
+            log.error("写入文件失败",e);
+            return e.getMessage();
+        }
+    }
+
 
     @GetMapping(path = "api/clear")
     public String apiClear(){
