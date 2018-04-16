@@ -10,13 +10,14 @@
 
 </head>
 <body>
-<style>
-    body{min-height:20px;padding-top:20px;padding-right:10px;padding-left:10px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:10px;margin-left:10px}
-</style>
+<#--<style>-->
+    <#--body{min-height:20px;padding-top:20px;padding-right:10px;padding-left:10px;background: #f6f6f6;}.table{width:98%;padding-right:5px;padding-left:5px;margin-top:20px;margin-right:10px;margin-left:10px}-->
+<#--</style>-->
 
 <ul class="nav nav-tabs">
     <li><a href="/index">API录制</a></li>
     <li class="active"><a href="/config">配置管理</a></li>
+    <li><a href="/code">代码模板管理</a></li>
 </ul>
     <div class="row">
         <div class="col-sm-12">

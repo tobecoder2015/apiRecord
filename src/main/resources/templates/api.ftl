@@ -9,6 +9,11 @@
 
 </head>
 <body>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="/index">API录制</a></li>
+    <li><a href="/config">配置管理</a></li>
+    <li><a href="/code">代码模板管理</a></li>
+</ul>
 <div class="container" >
     <div class="row">
         <div class="col-sm-12">
