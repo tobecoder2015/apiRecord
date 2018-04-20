@@ -23,6 +23,8 @@
     <li class="active"><a href="/index">API录制</a></li>
     <li><a href="/config">配置管理</a></li>
     <li><a href="/code">代码模板管理</a></li>
+    <li><a href="/para">生成参数</a></li>
+
 </ul>
     <div class="row">
         <div class="col-sm-12">
@@ -57,6 +59,7 @@
                             <td>
                                 <button type="button" class="btn btn-success" onclick="javascript:window.open ('api/'+${record.id}, 'API结果', 'height=600, width=800, top=100, left=100,toolbar=no, menubar=no, scrollbars=yes, resizable=yes, location=no, status=no')">查看</button>
                                 <button type="button" class="btn btn-success" onclick="writeFile(${record.id});">保存</button>
+                                <button type="button" class="btn btn-success" onclick="writeData(${record.id});">保存用例数据</button>
                                 <button type="button" class="btn btn-success" onclick="writeSchema(${record.id});">保存Schema</button>
                                 <button type="button" class="btn btn-success" onclick="del(${record.id});javascript:window.location.href='index'">删除</button>
                             </td>
@@ -86,10 +89,26 @@
     </footer>
 </body>
 <script>
+    function myrefresh(){window.location.reload();}
+    setTimeout('myrefresh()',5000); //指定2秒刷新一次
 
-    function writeSchema(id) {
+
+function writeSchema(id) {
         $.ajax({
             url:"api/"+id+"/writeSchema",
+            type:"get",
+            success:function(data){
+                alert(data);
+            },
+            error:function(e){
+                alert(e.responseText);
+            }
+        });
+    }
+
+    function writeData(id) {
+        $.ajax({
+            url:"api/"+id+"/writeData",
             type:"get",
             success:function(data){
                 alert(data);

@@ -64,10 +64,12 @@ public class ApiMake {
         }
         Map api=new HashMap();
         UrlGen.processUrl(record);
+
+
         api.put("apiDef",apiGen.apiDef(record));
         api.put("apiMethod",apiGen.apiMethod(record));
 
-        api.put("query",queryGen.getQuery(record));
+        api.put("query",queryGen.getQueryData(record));
         api.put("schema",schemaGen.getSchema(record));
         api.put("method",methodGen.method(record));
         return new ModelAndView("api", "api", api);
@@ -81,7 +83,7 @@ public class ApiMake {
             String fileName=nameGen.getClassName(record);
             fileService.saveSchema(fileName,schemaGen.getSchema(record));
             fileService.saveCodeModuleTestsuites(fileName,methodGen.method(record));
-            fileService.saveData(fileName,queryGen.getQuery(record));
+            fileService.saveData(fileName,queryGen.addQueryData(record,fileName));
             fileService.writeApiDef(apiGen.apiClass(record));
             return "写入文件成功："+FileService.saveCodeBase;
 
@@ -99,6 +101,21 @@ public class ApiMake {
             String fileName=nameGen.getClassName(record);
             fileService.saveSchema(fileName,schemaGen.getSchema(record));
             return "写入Schema文件成功："+FileService.saveCodeBase;
+
+        }catch (Exception e){
+            log.error("写入文件失败",e);
+            return e.getMessage();
+        }
+    }
+
+    @GetMapping(path = "api/{id}/writeData")
+    public String apiWriteData(@PathVariable int id ){
+        Record record=RecordMap.getRecord().get(id-1);
+        try {
+            UrlGen.processUrl(record);
+            String fileName=nameGen.getClassName(record);
+            fileService.saveData(fileName,queryGen.addQueryData(record,fileName));
+            return "写入用例数据文件成功："+FileService.saveCodeBase;
 
         }catch (Exception e){
             log.error("写入文件失败",e);

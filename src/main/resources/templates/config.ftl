@@ -18,6 +18,7 @@
     <li><a href="/index">API录制</a></li>
     <li class="active"><a href="/config">配置管理</a></li>
     <li><a href="/code">代码模板管理</a></li>
+    <li><a href="/para">生成参数</a></li>
 </ul>
     <div class="row">
         <div class="col-sm-12">

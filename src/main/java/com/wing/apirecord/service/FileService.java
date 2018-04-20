@@ -1,10 +1,13 @@
 package com.wing.apirecord.service;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.wing.apirecord.core.record.Record;
 import com.wing.apirecord.utils.ConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import java.io.File;
 import java.nio.charset.Charset;
@@ -56,6 +59,18 @@ public class FileService {
 
     public void saveData(String fileName,String data) throws Exception {
         saveFile(saveCodeModuleData+"/"+fileName+".json",data);
+    }
+
+    public JSONArray getData(String fileName) {
+        try {
+        String data= FileUtils.readFileToString(new File(saveCodeModuleData+"/"+fileName+".json"));
+        if(StringUtils.isNotBlank(data))
+            return JSON.parseArray(data);
+        }catch (Exception e){
+            log.error("获取接口数据异常",e);
+        }
+        return  new JSONArray();
+
     }
 
     public void saveSchema(String fileName,String data) throws Exception {

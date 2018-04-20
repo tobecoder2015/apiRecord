@@ -51,6 +51,7 @@ public class {className} extends TestBase {
 
         //json 校验
         JSONObject result=JSONObject.parseObject(responseMap.getResponseBody());
+        logger.debug(request.toJSONString());
         Assert.assertEquals(result.getIntValue("status"),0);
         Assert.assertEquals(result.getString("message"),"成功");
         //AssertUtil.assertJsonEquals(responseMap,expect, JSONCompareMode.LENIENT,null);

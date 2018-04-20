@@ -37,13 +37,13 @@
 
     </appender>
 
-    <logger name="com.wing.apirecord"  level="DEBUG" />
+    <logger name="com.wing.apirecord"  level="INFO" />
     <logger name="sun" level="ERROR"/>
     <logger name="io.netty" level="ERROR"/>
     <logger name="o.s" level="ERROR"/>
 
 
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
     </root>
 
