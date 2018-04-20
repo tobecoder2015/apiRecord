@@ -71,9 +71,9 @@ public class ParaGen {
             sb.append(" {\n");
             sb.append("     \"request\":{\n");
             if (meta.getString("method").equals("get"))
-                sb.append("         \"query\":" + JSON.toJSONString(oneQueryPara, SerializerFeature.WriteMapNullValue) + ",\n");
+                sb.append("         \"query\":" + JSON.toJSONString(oneQueryPara, SerializerFeature.WriteMapNullValue) + "\n");
             if (meta.getString("method").equals("post"))
-                sb.append("         \"body\":" + JSON.toJSONString(oneQueryPara, SerializerFeature.WriteMapNullValue) + ",\n");
+                sb.append("         \"body\":" + JSON.toJSONString(oneQueryPara, SerializerFeature.WriteMapNullValue) + "\n");
             sb.append("     },\n");
             sb.append("     \"comments\":\"自动生成参数组合\",\n");
             sb.append("     \"response\":{}\n");
